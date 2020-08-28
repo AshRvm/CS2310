@@ -41,10 +41,8 @@ int main()  {
 	for(iter = 0; iter < lim; iter++)  {
 		printf("%lld/%lld\n", iter, lim);
 
-		fprintf(outputFile, "set ");
-
 		for(innerIter = 0; innerIter < varcount; innerIter++)  {
-			fprintf(outputFile, "%s %d, ", varArr[innerIter], getBit(iter, varcount - innerIter - 1));
+			fprintf(outputFile, "set %s %d, ", varArr[innerIter], getBit(iter, varcount - innerIter - 1));
 		}
 
 		fprintf(outputFile, "eval, output;\n");
