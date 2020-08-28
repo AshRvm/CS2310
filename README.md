@@ -7,6 +7,9 @@ Install the Git client, preferably CLI.
 Check if it is installed: git --version (on CMD/PowerShell/Bash)
 
 You'll have to configure your username and user email.
+Type:
+git config --global user.name "first-name last-name"
+git config --global user.email "your-email-here@somewhere.com"
 
 Now navigate to the directory where you want to work with the repository, and clone it there:
 git clone https://github.com/V3D3/fcsdl-g23.git
