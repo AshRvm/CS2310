@@ -1,0 +1,29 @@
+CHIP Decoder38  {
+		IN x0, x1, x2;
+		OUT y0, y1, y2, y3, y4, y5, y6, y7;
+
+		PARTS:
+		Not (in=x0, out=notx0);
+		Not (in=x1, out=notx1);
+		Not (in=x2, out=notx2);
+
+		And (a=notx0, b=notx1, out=t0);
+
+		And (a=t0, b=notx2, out=y0);
+		And (a=t0, b=x2, out=y1);
+
+		And (a=notx0, b=x1, out=t1);
+
+		And (a=t1, b=notx2, out=y2);
+		And (a=t1, b=x2, out=y3);
+
+		And (a=x0, b=notx1, out=t2);
+
+		And (a=t2, b=notx2, out=y4);
+		And (a=t2, b=x2, out=y5);
+
+		And (a=x0, b=x1, out=t3);
+
+		And (a=t3, b=notx2, out=y6);
+		And (a=t3, b=x2, out=y7);
+}

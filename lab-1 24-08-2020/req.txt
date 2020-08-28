@@ -1,0 +1,7 @@
+4-2 bit encoder
+4-2 bit priority encoder
+2-4 bit decoder
+
+8-3 bit encoder
+8-3 bit priority encoder
+3-8 bit decoder
