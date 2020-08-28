@@ -1,0 +1,48 @@
+CHIP PriorityEncoder83 {
+
+	IN 		x0,x1,x2,x3,x4,x5,x6,x7;
+	OUT 	y0,y1,y2;
+
+	PARTS:
+	Not(in=x0, out=notx0);
+	Not(in=x1, out=notx1);
+	Not(in=x2, out=notx2);
+	Not(in=x3, out=notx3);
+	Not(in=x4, out=notx4);
+	Not(in=x5, out=notx5);
+	Not(in=x6, out=notx6);
+	Not(in=x7, out=notx7);
+
+	And(a=notx0, b=notx1, out=t01);//tvw is and of not of x(v) to x(w)
+	And(a=notx2, b=notx3, out=t23);
+
+	Or(a=x4, b=x5, out=m45);
+	Or(a=x6, b=x7, out=m67);
+	Or(a=m45, b=m67, out=m47);
+	And(a=t01, b=t23, out=t03);
+
+	And(a=m47, b=t03, out=y2);
+
+	And(a=notx4, b=notx5, out=t45);
+	Or(a=x2, b=x3, out=m23);
+	Or(a=m23, b=t45, out=w1);
+
+	And(a=w1, b=t01, out=y1);
+
+	And(a=notx0, b=x1, out=f1);
+
+	And(a=notx0, b=notx2, out=k1);
+	And(a=k1, b=x3, out=f2);
+
+	And(a=k1, b=notx4, out=k2);
+	And(a=k2, b=x5, out=f3);
+
+	And(a=k2, b=notx6, out=f4);
+
+	Or(a=f1, b=f2, out=a);
+	Or(a=f4, b=f3, out=b);
+
+	Or(a=a, b=b, out=y0);
+
+
+}
