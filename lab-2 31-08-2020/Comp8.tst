@@ -1,6 +1,6 @@
 load Comp8.hdl,
 output-file Comp8.out,
-//compare-to Comp8.cmp,
+compare-to Comp8.cmp,
 output-list x0%B3.1.3 x1%B3.1.3 x2%B3.1.3 x3%B3.1.3 x4%B3.1.3 x5%B3.1.3 x6%B3.1.3 x7%B3.1.3
 y0%B3.1.3 y1%B3.1.3 y2%B3.1.3 y3%B3.1.3 y4%B3.1.3 y5%B3.1.3 y6%B3.1.3 y7%B3.1.3
 z%B3.1.3;
