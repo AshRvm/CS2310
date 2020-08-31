@@ -76,26 +76,34 @@ int main()  {
 
 	long long lim = pow(2, varcount + busoverhead);
 	long long iter;
-	long long innerIter;
+	long long bitPosIter;
+	long long innerVarIter;
 
 	printf("\nWriting... ");
+
+	printf("varcount: %d, busoverhead: %d\n\n", varcount, busoverhead);
 
 	for(iter = 0; iter < lim; iter++)  {
 		printf("%lld/%lld\n", iter, lim);
 
-		for(innerIter = 0; innerIter < varcount; innerIter++)  {
-			int bl = busLength(varArr[innerIter]);
+		bitPosIter = 0;
+		for(innerVarIter = 0; innerVarIter < varcount; innerVarIter++, bitPosIter++)  {
+			int bl = busLength(varArr[innerVarIter]);
 			if(bl == 0)  {
-				fprintf(outputFile, "set %s %d, ", varArr[innerIter], getBit(iter, varcount - innerIter - 1));
+				fprintf(outputFile, "set %s %d, ", varArr[innerVarIter], getBit(iter, varcount + busoverhead - (bitPosIter) - 1));
 			}  else  {
 				int busIter;
+
 				fprintf(outputFile, "set ");
-				printBusVarName(outputFile, varArr[innerIter]);
+				printBusVarName(outputFile, varArr[innerVarIter]);
 				fprintf(outputFile, " %%B");
+
 				for(busIter = 0; busIter < bl; busIter++)  {
-					fprintf(outputFile, "%d", getBit(iter, varcount - innerIter + busIter - 1));
+					fprintf(outputFile, "%d", getBit(iter, varcount + busoverhead - bitPosIter - busIter - 1));
 				}
 				fprintf(outputFile, ", ");
+
+				bitPosIter += bl - 1;
 			}
 		}
 
