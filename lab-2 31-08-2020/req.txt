@@ -5,6 +5,16 @@
 (5) 8-bit Parity Generator and Checker
 
 responsibilities:
-1, 2, 5 - 
-3 - 
-4 -  
+1, 3 - dhago
+2, 4 - ashrvm
+5 - v3d3
+
+built:
+
+tested:
+1  
+2  
+3  
+4  
+5a 
+5b 

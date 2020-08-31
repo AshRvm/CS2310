@@ -3,5 +3,20 @@ CHIP ParityGen8  {
 	OUT p;
 
 	PARTS:
-	
+	//even parity generator:
+	//parity bit = if input bits are odd
+	//= xor of all input bits
+
+	//first level of xor, of 2 bits
+	Xor(a=x[0], b=x[1], out=x01);
+	Xor(a=x[2], b=x[3], out=x23);
+	Xor(a=x[4], b=x[5], out=x45);
+	Xor(a=x[6], b=x[7], out=x67);
+
+	//second level of xor, of 4 bits
+	Xor(a=x01, b=x23, out=x0123);
+	Xor(a=x45, b=x67, out=x4567);
+
+	//last level, output
+	Xor(a=x0123, b=x4567, out=p);
 }
