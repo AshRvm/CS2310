@@ -1,0 +1,26 @@
+CHIP Encoder2{
+	IN x0,x1,x2,x3,x4,x5,x6,x7;
+	OUT y0,y1,y2;
+
+	PARTS:
+	
+	Not(in=x0,out=notx0);
+	Not(in=x1,out=notx1);
+	Not(in=x2,out=notx2);
+	Not(in=x3,out=notx3);
+	Not(in=x4,out=notx4);
+	Not(in=x5,out=notx5);
+	Not(in=x6,out=notx6);
+	Not(in=x7,out=notx7);
+
+	And(a=notx0,b=notx1,out=temp1);
+	And(a=notx0,b=notx2,out=temp2);
+	And(a=notx2,b=notx3,out=temp3);
+	And(a=notx4,b=notx5,out=temp4);
+	And(a=notx4,b=notx6,out=temp5);
+
+	And(a=temp1,b=temp3,out=y2);
+	And(a=temp1,b=temp4,out=y1);
+	And(a=temp2,b=temp5,out=y0);
+
+}
