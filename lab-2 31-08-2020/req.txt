@@ -9,12 +9,12 @@ responsibilities:
 2, 4 - ashrvm
 5 - v3d3
 
-built:
+built: 5
 
 tested:
 1  
 2  
 3  
 4  
-5a 
-5b 
+5a v3d3
+5b v3d3
