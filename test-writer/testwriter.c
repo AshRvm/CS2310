@@ -36,6 +36,13 @@ int busLength(char * name)  {
 	return parseInt(name, i + 1, length - 2);
 }
 
+void printBusVarName(FILE * f, char * name)  {
+	int i = 0;
+	while(name[i] != '[')  {
+		fputc(name[i++], f);
+	}
+}
+
 int main()  {
 	int mode;
 
@@ -82,7 +89,9 @@ int main()  {
 				fprintf(outputFile, "set %s %d, ", varArr[innerIter], getBit(iter, varcount - innerIter - 1));
 			}  else  {
 				int busIter;
-				fprintf(outputFile, "set %s %%B", varArr[innerIter]);
+				fprintf(outputFile, "set ");
+				printBusVarName(outputFile, varArr[innerIter]);
+				fprintf(outputFile, " %%B");
 				for(busIter = 0; busIter < bl; busIter++)  {
 					fprintf(outputFile, "%d", getBit(iter, varcount - innerIter + busIter - 1));
 				}
