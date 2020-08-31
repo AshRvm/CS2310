@@ -1,4 +1,4 @@
-CHIP Encoder1{
+CHIP Encoder42{
 	IN x0,x1,x2,x3;
 	OUT y0,y1;
 

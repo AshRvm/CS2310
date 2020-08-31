@@ -1,0 +1,10 @@
+(1) 2-bit 4-to-1 Mux
+(2) 2-bit 4-to-1 Priority Mux
+(3) 2-bit 1-to-8 Demux
+(4) 8-bit comparator
+(5) 8-bit Parity Generator and Checker
+
+responsibilities:
+1, 2 - 
+3, 5 hdl - 
+4, 5 tst -  
