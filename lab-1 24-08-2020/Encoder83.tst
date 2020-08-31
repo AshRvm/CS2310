@@ -90,3 +90,25 @@ set x6 0,
 set x7 1,
 eval,
 output;
+
+set x0 1,
+set x1 1,
+set x2 1,
+set x3 0,
+set x4 0,
+set x5 0,
+set x6 0,
+set x7 0,
+eval,
+output;
+
+set x0 1,
+set x1 1,
+set x2 0,
+set x3 0,
+set x4 0,
+set x5 0,
+set x6 0,
+set x7 0,
+eval,
+output;
