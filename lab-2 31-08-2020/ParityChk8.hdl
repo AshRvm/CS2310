@@ -1,0 +1,7 @@
+CHIP ParityChk8  {
+	IN x[8], p;
+	OUT z;
+
+	PARTS:
+	
+}

@@ -1,0 +1,7 @@
+CHIP ParityGen8  {
+	IN x[8];
+	OUT p;
+
+	PARTS:
+	
+}

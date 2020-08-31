@@ -1,0 +1,7 @@
+CHIP Demux8Way2  {
+	IN x[2], s0, s1, s2;
+	OUT y0[2], y1[2], y2[2], y3[2], y4[2], y5[2], y6[2], y7[2];
+
+	PARTS:
+	
+}

@@ -1,0 +1,7 @@
+CHIP Comp8  {
+	IN x[8], y[8];
+	OUT z;
+
+	PARTS:
+	
+}

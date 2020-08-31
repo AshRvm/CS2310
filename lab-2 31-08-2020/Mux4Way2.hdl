@@ -1,0 +1,7 @@
+CHIP Mux4Way2  {
+	IN x0[2], x1[2], x2[2], x3[2], s0, s1;
+	OUT y[2];
+
+	PARTS:
+
+}
