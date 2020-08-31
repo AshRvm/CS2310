@@ -1,6 +1,6 @@
-load Encoder1.hdl,
-output-file Encoder1.out,
-compare-to Encoder1.cmp,
+load Encoder42.hdl,
+output-file Encoder42.out,
+compare-to Encoder42.cmp,
 output-list x0%B3.1.3 x1%B3.1.3 x2%B3.1.3 x3%B3.1.3 y0%B3.1.3 y1%B3.1.3;
 
 set x0 1,
