@@ -11,17 +11,11 @@ CHIP PriorityEncoder83 {
 	Not(in=x4, out=notx4);
 	Not(in=x5, out=notx5);
 	Not(in=x6, out=notx6);
-	Not(in=x7, out=notx7);
 
-	And(a=notx0, b=notx1, out=t01);//tvw is and of not of x(v) to x(w)
+	And(a=notx0, b=notx1, out=t01);//tvw is AND of NOT of x(v) to x(w)
 	And(a=notx2, b=notx3, out=t23);
 
-	Or(a=x4, b=x5, out=m45);
-	Or(a=x6, b=x7, out=m67);
-	Or(a=m45, b=m67, out=m47);
-	And(a=t01, b=t23, out=t03);
-
-	And(a=m47, b=t03, out=y2);
+	And(a=t01, b=t23, out=y2);
 
 	And(a=notx4, b=notx5, out=t45);
 	Or(a=x2, b=x3, out=m23);
@@ -33,7 +27,7 @@ CHIP PriorityEncoder83 {
 
 	And(a=notx0, b=notx2, out=k1);
 	And(a=k1, b=x3, out=f2);
-
+	
 	And(a=k1, b=notx4, out=k2);
 	And(a=k2, b=x5, out=f3);
 
@@ -43,6 +37,4 @@ CHIP PriorityEncoder83 {
 	Or(a=f4, b=f3, out=b);
 
 	Or(a=a, b=b, out=y0);
-
-
 }
