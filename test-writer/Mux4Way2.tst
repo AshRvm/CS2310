@@ -1,6 +1,6 @@
 load Mux4Way2.hdl,
 output-file Mux4Way2.out,
-compare-to Mux4Way2.cmp,
+//compare-to Mux4Way2.cmp,
 output-list x0%B1.2.1 x1%B1.2.1 x2%B1.2.1 x3%B1.2.1 s1 s0 y%B1.2.1;
 
 
