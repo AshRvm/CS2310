@@ -1,6 +1,6 @@
 CHIP PMux4Way2  {
-	IN x00, x01, x10, x11, x20, x21, x30, x31, r0, r1, r2, r3;
-	OUT y0, y1;
+	IN x0[2], x1[2], x2[2], x3[2], r0, r1, r2, r3;
+	OUT y[2];
 
 	PARTS:
 	//s1, s0 are internal
@@ -21,22 +21,22 @@ CHIP PMux4Way2  {
 	And(a=s1,b=nots0,out=priority2);
 	And(a=s1,b=s0,out=priority3);
 
-	And(a=priority0,b=x01,out=bitOne0);
-	And(a=priority1,b=x11,out=bitOne1);
-	And(a=priority2,b=x21,out=bitOne2);
-	And(a=priority3,b=x31,out=bitOne3);
+	And(a=priority0,b=x0[1],out=bitOne0);
+	And(a=priority1,b=x1[1],out=bitOne1);
+	And(a=priority2,b=x2[1],out=bitOne2);
+	And(a=priority3,b=x3[1],out=bitOne3);
 
-	And(a=priority0,b=x00,out=bitZero0);
-	And(a=priority1,b=x10,out=bitZero1);
-	And(a=priority2,b=x20,out=bitZero2);
-	And(a=priority3,b=x30,out=bitZero3);
+	And(a=priority0,b=x0[0],out=bitZero0);
+	And(a=priority1,b=x1[0],out=bitZero1);
+	And(a=priority2,b=x2[0],out=bitZero2);
+	And(a=priority3,b=x3[0],out=bitZero3);
 
 	Or(a=bitOne0,b=bitOne1,out=tempOne1);
 	Or(a=bitOne2,b=bitOne3,out=tempOne2);
-	Or(a=tempOne1,b=tempOne2,out=y1);
+	Or(a=tempOne1,b=tempOne2,out=y[1]);
 
 	Or(a=bitZero0,b=bitZero1,out=tempZero1);
 	Or(a=bitZero2,b=bitZero3,out=tempZero2);
-	Or(a=tempZero1,b=tempZero2,out=y0);
+	Or(a=tempZero1,b=tempZero2,out=y[0]);
 
 }

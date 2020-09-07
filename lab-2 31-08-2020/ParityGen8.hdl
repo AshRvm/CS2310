@@ -4,7 +4,7 @@ CHIP ParityGen8  {
 
 	PARTS:
 	//even parity generator:
-	//parity bit = if input bits are odd
+	//parity bit = 1 if input bits are odd else 0
 	//= xor of all input bits
 
 	//first level of xor, of 2 bits

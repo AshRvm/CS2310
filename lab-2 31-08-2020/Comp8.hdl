@@ -1,17 +1,17 @@
 CHIP Comp8  {
-	IN x0,x1,x2,x3,x4,x5,x6,x7, y0,y1,y2,y3,y4,y5,y6,y7;
+	IN x[8], y[8];
 	OUT z;
 
 	PARTS:
 	
-	Xor(a=x0,b=y0,out=temp0);
-	Xor(a=x1,b=y1,out=temp1);
-	Xor(a=x2,b=y2,out=temp2);
-	Xor(a=x3,b=y3,out=temp3);
-	Xor(a=x4,b=y4,out=temp4);
-	Xor(a=x5,b=y5,out=temp5);
-	Xor(a=x6,b=y6,out=temp6);
-	Xor(a=x7,b=y7,out=temp7);	
+	Xor(a=x[0],b=y[0],out=temp0);
+	Xor(a=x[1],b=y[1],out=temp1);
+	Xor(a=x[2],b=y[2],out=temp2);
+	Xor(a=x[3],b=y[3],out=temp3);
+	Xor(a=x[4],b=y[4],out=temp4);
+	Xor(a=x[5],b=y[5],out=temp5);
+	Xor(a=x[6],b=y[6],out=temp6);
+	Xor(a=x[7],b=y[7],out=temp7);	
 
 	Or(a=temp0,b=temp1,out=newtemp1);
 	Or(a=newtemp1,b=temp2,out=newtemp2);
@@ -22,5 +22,4 @@ CHIP Comp8  {
 	Or(a=newtemp6,b=temp7,out=notz);
 
 	Not(in=notz,out=z);
-	
 }
