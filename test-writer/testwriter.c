@@ -4,7 +4,8 @@
 #include <string.h>
 
 #define MAX_LEN 20
-#define MAX_FILE_LEN 20
+#define MAX_CHIP_LEN 50
+#define MAX_FILE_LEN 50
 
 int getBit(long long src, int position)  {
 	return (src >> position) & 1;
@@ -80,8 +81,6 @@ int main()  {
 	long long innerVarIter;
 
 	printf("\nWriting... ");
-
-	printf("varcount: %d, busoverhead: %d\n\n", varcount, busoverhead);
 
 	for(iter = 0; iter < lim; iter++)  {
 		printf("%lld/%lld\n", iter, lim);

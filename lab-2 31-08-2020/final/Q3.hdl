@@ -1,0 +1,44 @@
+CHIP Demux8Way2  {
+	IN x[2], s2, s1, s0;
+	OUT y0[2], y1[2], y2[2], y3[2], y4[2], y5[2], y6[2], y7[2];
+
+	PARTS:
+	Not(in=s0, out=nots0);
+	Not(in=s1, out=nots1);
+	Not(in=s2, out=nots2);
+
+	And(a=nots2, b=nots1, out=t1);
+	And(a=t1, b=nots0, out=f0);
+	And(a=t1, b=s0, out=f1);
+
+	And(a=nots2, b=s1, out=t2);
+	And(a=t2, b=nots0, out=f2);
+	And(a=t2, b=s0, out=f3);
+
+	And(a=s2, b=nots1, out=t3);	
+	And(a=t3, b=nots0, out=f4);
+	And(a=t3, b=s0, out=f5);
+
+	And(a=s2, b=s1, out=t4);	
+	And(a=t4, b=nots0, out=f6);
+	And(a=t4, b=s0, out=f7);
+
+	And(a=f0, b=x[0], out=y0[0]);
+	And(a=f1, b=x[0], out=y1[0]);
+	And(a=f2, b=x[0], out=y2[0]);
+	And(a=f3, b=x[0], out=y3[0]);
+	And(a=f4, b=x[0], out=y4[0]);
+	And(a=f5, b=x[0], out=y5[0]);
+	And(a=f6, b=x[0], out=y6[0]);
+	And(a=f7, b=x[0], out=y7[0]);
+
+	And(a=f0, b=x[1], out=y0[1]);
+	And(a=f1, b=x[1], out=y1[1]);
+	And(a=f2, b=x[1], out=y2[1]);
+	And(a=f3, b=x[1], out=y3[1]);
+	And(a=f4, b=x[1], out=y4[1]);
+	And(a=f5, b=x[1], out=y5[1]);
+	And(a=f6, b=x[1], out=y6[1]);
+	And(a=f7, b=x[1], out=y7[1]);
+
+}

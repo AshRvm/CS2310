@@ -1,0 +1,29 @@
+CHIP Mux4Way2  {
+	IN x0[2], x1[2], x2[2], x3[2], s1, s0;
+	OUT y[2];
+
+	PARTS:
+	Not(in=s0, out=nots0);
+	Not(in=s1, out=nots1);
+
+	And(a=nots1, b=nots0, out=p0);
+	And(a=nots1, b=s0, out=p1);
+	And(a=s1, b=nots0, out=p2);
+	And(a=s1, b=s0, out=p3);
+
+	And(a=p0, b=x0[0], out=m0);
+	And(a=p1, b=x1[0], out=m1);
+	And(a=p2, b=x2[0], out=m2);
+	And(a=p3, b=x3[0], out=m3);
+	And(a=p0, b=x0[1], out=n0);
+	And(a=p1, b=x1[1], out=n1);
+	And(a=p2, b=x2[1], out=n2);
+	And(a=p3, b=x3[1], out=n3);
+	Or(a=m0, b=m1, out=a);
+	Or(a=m2, b=m3, out=b);
+	Or(a=n0, b=n1, out=c);
+	Or(a=n2, b=n3, out=d);
+	Or(a=a, b=b, out=y[0]);
+	Or(a=c, b=d, out=y[1]);	
+
+}
