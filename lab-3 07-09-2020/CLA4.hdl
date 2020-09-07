@@ -1,0 +1,8 @@
+CHIP CLA4  {
+	//ci: carry-in, co: carry-out
+	IN 		x[4], y[4], ci;
+	OUT		s[4], co;
+
+	PARTS:
+
+}

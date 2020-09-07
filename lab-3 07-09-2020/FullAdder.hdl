@@ -1,0 +1,7 @@
+CHIP FullAdder  {
+	IN 		x, y, ci;
+	OUT		s, co;
+
+	PARTS:
+
+}
