@@ -1,10 +1,11 @@
-CHIP CLA4  {
-	//ci: carry-in, co: carry-out
-	IN 		x[4], y[4], ci;
-	OUT		s[4], co;
+//Returns c3 and c4
+CHIP CLA4spc{
+    IN x[4],y[4],ci;
+    OUT s[4],c3,c4;
 
 	PARTS:
-	//p[i]
+    
+    //p[i]
     Xor(a=x[0],b=y[0],out=p0);
     Xor(a=x[1],b=y[1],out=p1);
     Xor(a=x[2],b=y[2],out=p2);
@@ -36,7 +37,7 @@ CHIP CLA4  {
     And(a=p2,b=g1,out=temp25);
     Or (a=temp22,b=temp24,out=temp26);
     Or (a=temp26,b=temp25,out=temp27);
-    Or (a=temp27,b=g2,out=c3);
+    Or (a=temp27,b=g2,out=temp);
 
     //co (I give up on expanding each term individually)
     And(a=p3,b=p2,out=temp30);
@@ -49,12 +50,14 @@ CHIP CLA4  {
     Or (a=temp33,b=temp34,out=temp37);
     Or (a=temp37,b=temp35,out=temp38);
     Or (a=temp38,b=temp36,out=temp39);
-    Or (a=temp39,b=g3,out=co);
+    Or (a=temp39,b=g3,out=c4);
 
     //s[i]
     Xor(a=p0,b=ci,out=s[0]);
     Xor(a=p1,b=c1,out=s[1]);
     Xor(a=p2,b=c2,out=s[2]);
-    Xor(a=p3,b=c3,out=s[3]);
+    Xor(a=p3,b=temp,out=s[3]);
 
+    Not(in=temp,out=notTemp);
+    Not(in=notTemp,out=c3);
 }
