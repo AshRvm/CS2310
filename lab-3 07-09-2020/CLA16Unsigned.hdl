@@ -1,0 +1,17 @@
+CHIP CLA16Unsigned{
+    IN a[16],b[16],cin;
+    OUT s[16],overflow;
+
+    PARTS:
+
+    Xor4(a=b[0..3],cin=cin,b=temp1);
+    Xor4(a=b[4..7],cin=cin,b=temp2);
+    Xor4(a=b[8..11],cin=cin,b=temp3);
+    Xor4(a=b[12..15],cin=cin,b=temp4);
+
+    CLA4(x=a[0..3],y=temp1,ci=cin,s=s[0..3],co=c4);
+    CLA4(x=a[4..7],y=temp2,ci=c4,s=s[4..7],co=c8);
+    CLA4(x=a[8..11],y=temp3,ci=c8,s=s[8..11],co=c12);
+    CLA4(x=a[12..15],y=temp4,ci=c12,s=s[12..15],co=overflow);
+
+}
