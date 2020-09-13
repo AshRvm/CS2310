@@ -14,30 +14,26 @@ CHIP CLA4PGIu  {
 
 	//c2
 	And3(a=p[1], b=p[0], c=ci, out=p1p0c0);
-	And(a=p[1], b=g[0], out=p1g0);
+	And(a=p[1],  b=g[0], out=p1g0);
 	Or3(a=p1p0c0, b=p1g0, c=g[1], out=c2);
 
 	//c3
 	And4(a=p[2], b=p[1], c=p[0], d=ci, out=p2p1p0c0);
 	And3(a=p[2], b=p[1], c=g[0], out=p1p0g0);
-	And(a=p[2], b=g[1], out=p2g1);
+	And(a=p[2],  b=g[1], out=p2g1);
 	Or4(a=p2p1p0c0, b=p1p0g0, c=p2g1, d=g[2], out=c3);
 
 	//co
 	And5(a=p[3], b=p[2], c=p[1], d=p[0], e=ci, out=p3p2p1p0c0);
 	And4(a=p[3], b=p[2], c=p[1], d=g[0], out=p3p2p1g0);
 	And3(a=p[3], b=p[2], c=g[1], out=p3p2g1);
-	And(a=p[3], b=g[2], out=p3g2);
-	Or5(a=p3p2p1p0c0, b=p3p2p1g0, c=p3p2g1, d=p3g2, e=g[3], out=c4);
-	//we didn't output C4 as CO since we need it for OF check
+	And(a=p[3],  b=g[2], out=p3g2);
+	Or5(a=p3p2p1p0c0, b=p3p2p1g0, c=p3p2g1, d=p3g2, e=g[3], out=co, out=of);
+	//carry-out is overflow indicator for unsigned adder
 
 	//sum bits: Si = Pi xor Ci
 	Xor(a=p[0], b=ci, out=s[0]);
 	Xor(a=p[1], b=c1, out=s[1]);
 	Xor(a=p[2], b=c2, out=s[2]);
 	Xor(a=p[3], b=c3, out=s[3]);
-
-	//of check and co output
-	Or(a=false, b=c4, out=of);
-	Or(a=false, b=c4, out=co);
 }

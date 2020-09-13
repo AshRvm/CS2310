@@ -1,20 +1,20 @@
 CHIP CLA4PGO  {
-	//CLA4PGO takes in x, y, carry-in and outputs Pi and Gi terms
+	//CLA4PGO takes in a, b, carrb-in and outputs Pi and Gi terms
 
-	//ci: carry-in, co: carry-out
-	IN 		x[4], y[4], ci;
+	//ci: carrb-in, co: carrb-out
+	IN 		a[4], b[4], ci;
 	OUT		p[4], g[4];
 
 	PARTS:
 	//propagate bits
-	Xor(a=x[0], b=y[0], out=p[0]);
-	Xor(a=x[1], b=y[1], out=p[1]);
-	Xor(a=x[2], b=y[2], out=p[2]);
-	Xor(a=x[3], b=y[3], out=p[3]);
+	Xor(a=a[0], b=b[0], out=p[0]);
+	Xor(a=a[1], b=b[1], out=p[1]);
+	Xor(a=a[2], b=b[2], out=p[2]);
+	Xor(a=a[3], b=b[3], out=p[3]);
 
 	//generate bits
-	And(a=x[0], b=y[0], out=g[0]);
-	And(a=x[1], b=y[1], out=g[1]);
-	And(a=x[2], b=y[2], out=g[2]);
-	And(a=x[3], b=y[3], out=g[3]);
+	And(a=a[0], b=b[0], out=g[0]);
+	And(a=a[1], b=b[1], out=g[1]);
+	And(a=a[2], b=b[2], out=g[2]);
+	And(a=a[3], b=b[3], out=g[3]);
 }
