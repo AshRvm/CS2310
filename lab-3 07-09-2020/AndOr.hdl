@@ -1,0 +1,8 @@
+CHIP AndOr  {
+	IN	a0, a1, b;
+	OUT out;
+
+	PARTS:
+	And(a=a0, b=a1, out=a);
+	Or(a=a, b=b, out=out);
+}
