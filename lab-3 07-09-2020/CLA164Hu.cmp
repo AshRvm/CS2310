@@ -1,5 +1,5 @@
-|   x    |   y    |   s    | of  |
-|  0fa1  |  0099  |  103a  |  0  |
-|  fffe  |  0f0f  |  0f0d  |  1  |
-|  0fa1  |  01b7  |  1159  |  0  |
-|  fffe  |  0f0f  |  0f0e  |  1  |
+|   a    |   b    | AS  |   s    | of  |
+|  0fa1  |  0099  |  0  |  103a  |  0  |
+|  fffe  |  0f0f  |  0  |  0f0d  |  1  |
+|  0fa1  |  01b7  |  1  |  0dea  |  1  |
+|  fffe  |  0f0f  |  1  |  f0ef  |  1  |

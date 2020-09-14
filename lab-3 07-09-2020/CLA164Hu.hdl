@@ -2,25 +2,31 @@ CHIP CLA164Hu  {
 	//unsigned
 
 	//ci: carrb-in, co: carrb-out, of: overflow
-	IN		a[16], b[16], ci;
+	IN		a[16], b[16], AS;
 	OUT		s[16], co, of;
 
 	PARTS:
 	//p[0-9]+ : Pi
 	//P([0-9]+)b([0-9]+) : P[\1..\2]
 
+	//extra step: Invert b-input if AS is active
+	Xor4b1(a=b[0..3],   b=AS, out=b0b3);
+	Xor4b1(a=b[4..7],   b=AS, out=b4b7);
+	Xor4b1(a=b[8..11],  b=AS, out=b8b11);
+	Xor4b1(a=b[12..15], b=AS, out=b12b15);
+
 	//////////    t = 1tau: Pi, Gi    //////////
 	//generate all the pi, gi terms
-	CLA4PGO(a=a[0..3], b=b[0..3],
+	CLA4PGO(a=a[0..3], b=b0b3,
 			p=P0b3, p[0]=p0, p[1]=p1, p[2]=p2, p[3]=p3,
 			g=G0b3, g[0]=g0, g[1]=g1, g[2]=g2, g[3]=g3);
-	CLA4PGO(a=a[4..7], b=b[4..7],
+	CLA4PGO(a=a[4..7], b=b4b7,
 			p=P4b7, p[0]=p4, p[1]=p5, p[2]=p6, p[3]=p7,
 			g=G4b7, g[0]=g4, g[1]=g5, g[2]=g6, g[3]=g7);
-	CLA4PGO(a=a[8..11], b=b[8..11],
+	CLA4PGO(a=a[8..11], b=b8b11,
 			p=P8b11, p[0]=p8, p[1]=p9, p[2]=p10, p[3]=p11,
 			g=G8b11, g[0]=g8, g[1]=g9, g[2]=g10, g[3]=g11);
-	CLA4PGO(a=a[12..15], b=b[12..15],
+	CLA4PGO(a=a[12..15], b=b12b15,
 			p=P12b15, p[0]=p12, p[1]=p13, p[2]=p14, p[3]=p15,
 			g=G12b15, g[0]=g12, g[1]=g13, g[2]=g14, g[3]=g15);
 
@@ -58,28 +64,28 @@ CHIP CLA164Hu  {
 
 	//////////    t = 5tau: C4i    //////////
 	//c4
-	AndOr(a0=p0i, a1=ci, b=g0i, out=c4);
+	AndOr(a0=p0i, a1=AS, b=g0i, out=c4);
 
 	//c8
 	And(a=p1i,  b=g0i, out=p1ig0i);
-	And3(a=p1i, b=p0i, c=ci, out=p1ip0ic0);
+	And3(a=p1i, b=p0i, c=AS, out=p1ip0ic0);
 	Or3(a=p1ip0ic0, b=p1ig0i, c=g1i, out=c8);
 
 	//c12
 	And(a=p2i,  b=g1i, out=p2ig1i);
 	And3(a=p2i, b=p1i, c=g0i, out=p2ip1ig0i);
-	And4(a=p2i, b=p1i, c=p0i, d=ci, out=p2ip1ip0ic0);
+	And4(a=p2i, b=p1i, c=p0i, d=AS, out=p2ip1ip0ic0);
 	Or4(a=p2ip1ip0ic0, b=p2ip1ig0i, c=p2ig1i, d=g2i, out=c12);
 
 	//c16 (unnecessarb, but will calculate for completeness)
 	And(a=p3i,  b=g2i, out=p3ig2i);
 	And3(a=p3i, b=p2i, c=g1i, out=p3ip2ig1i);
 	And4(a=p3i, b=p2i, c=p1i, d=g0i, out=p3ip2ip1ig0i);
-	And5(a=p3i, b=p2i, c=p1i, d=p0i, e=ci, out=p3ip2ip1ip0ic0);
+	And5(a=p3i, b=p2i, c=p1i, d=p0i, e=AS, out=p3ip2ip1ip0ic0);
 	Or5(a=p3ip2ip1ip0ic0, b=p3ip2ip1ig0i, c=p3ip2ig1i, d=p3ig2i, e=g3i, out=c16);
 
 	//////////    t = 7tau: C(4i+k), Si    //////////
-	CLA4PGIu(p=P0b3,   g=G0b3,   ci=ci,  s=s[0..3],   co=discard0, of=discard4);
+	CLA4PGIu(p=P0b3,   g=G0b3,   ci=AS,  s=s[0..3],   co=discard0, of=discard4);
 	CLA4PGIu(p=P4b7,   g=G4b7,   ci=c4,  s=s[4..7],   co=discard1, of=discard5);
 	CLA4PGIu(p=P8b11,  g=G8b11,  ci=c8,  s=s[8..11],  co=discard2, of=discard6);
 	CLA4PGIu(p=P12b15, g=G12b15, ci=c12, s=s[12..15], co=discard3, of=of);

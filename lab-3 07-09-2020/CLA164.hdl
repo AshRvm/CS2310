@@ -1,14 +1,14 @@
 CHIP CLA164  {
-    IN a[16], b[16], ci;
+    IN a[16], b[16], AS;
     OUT s[16], of;
 
     PARTS:
-    Xor4b1(a=b[0..3],   b=ci, out=temp1);
-    Xor4b1(a=b[4..7],   b=ci, out=temp2);
-    Xor4b1(a=b[8..11],  b=ci, out=temp3);
-    Xor4b1(a=b[12..15], b=ci, out=temp4);
+    Xor4b1(a=b[0..3],   b=AS, out=temp1);
+    Xor4b1(a=b[4..7],   b=AS, out=temp2);
+    Xor4b1(a=b[8..11],  b=AS, out=temp3);
+    Xor4b1(a=b[12..15], b=AS, out=temp4);
 
-    CLA4(x=a[0..3],      y=temp1, ci=ci,  s=s[0..3],    co=c4);
+    CLA4(x=a[0..3],      y=temp1, ci=AS,  s=s[0..3],    co=c4);
     CLA4(x=a[4..7],      y=temp2, ci=c4,  s=s[4..7],    co=c8);
     CLA4(x=a[8..11],     y=temp3, ci=c8,  s=s[8..11],   co=c12);
     CLA4CE(x=a[12..15],  y=temp4, ci=c12, s=s[12..15],  c4=cTemp2, c3=cTemp1);
