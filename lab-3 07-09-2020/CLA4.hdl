@@ -38,7 +38,7 @@ CHIP CLA4  {
     Or (a=temp26,   b=temp25,   out=temp27);
     Or (a=temp27,   b=g2,       out=c3);
 
-    //co (I give up on expanding each term individually)
+    //co 
     And(a=p3,     b=p2,     out=temp30);
     And(a=temp30, b=p1,     out=temp31);
     And(a=temp31, b=p0,     out=temp32);
