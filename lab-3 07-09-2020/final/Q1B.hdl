@@ -1,0 +1,16 @@
+CHIP RCA164u {
+    IN x[16], y[16], AS;
+    OUT out[16], of;
+
+    PARTS:
+    Xor4b1(a=y[0..3],   b=AS, out=t1);
+    Xor4b1(a=y[4..7],   b=AS, out=t2);
+    Xor4b1(a=y[8..11],  b=AS, out=t3);
+    Xor4b1(a=y[12..15], b=AS, out=t4);
+  	
+  	RCA4(x=x[0..3],   y=t1, ci=AS,   s=out[0..3],   co=c4);
+  	RCA4(x=x[4..7],   y=t2, ci=c4,   s=out[4..7],   co=c8);
+  	RCA4(x=x[8..11],  y=t3, ci=c8,   s=out[8..11],  co=c12);
+  	RCA4(x=x[12..15], y=t4, ci=c12,  s=out[12..15], co=of);
+    
+}

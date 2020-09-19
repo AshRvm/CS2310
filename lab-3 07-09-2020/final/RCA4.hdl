@@ -1,0 +1,11 @@
+CHIP RCA4  {
+	IN 		x[4], y[4], ci;
+	//c0 is also the A/S term
+	OUT		s[4], co;
+
+	PARTS:
+	FullAdder(a=x[0], b=y[0], c=ci, sum=s[0], carry=c1);
+	FullAdder(a=x[1], b=y[1], c=c1,  sum=s[1], carry=c2);
+	FullAdder(a=x[2], b=y[2], c=c2,  sum=s[2], carry=c3);
+	FullAdder(a=x[3], b=y[3], c=c3,  sum=s[3], carry=co);
+}

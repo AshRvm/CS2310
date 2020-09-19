@@ -1,0 +1,25 @@
+CHIP RCA164 {
+    IN x[16], y[16], AS;
+    OUT out[16], of;
+
+    PARTS:
+    Xor4b1(a=y[0..3],  b=AS, out=t1);
+    Xor4b1(a=y[4..7],  b=AS, out=t2);
+    Xor4b1(a=y[8..11], b=AS, out=t3);
+
+    Xor(a=y[12], b=AS, out=t12);
+    Xor(a=y[13], b=AS, out=t13);
+    Xor(a=y[14], b=AS, out=t14);
+    Xor(a=y[15], b=AS, out=t15);
+  	
+  	RCA4(x=x[0..3],  y=t1, ci=AS, s=out[0..3],  co=c4);
+  	RCA4(x=x[4..7],  y=t2, ci=c4, s=out[4..7],  co=c8);
+  	RCA4(x=x[8..11], y=t3, ci=c8, s=out[8..11], co=c12);
+    
+    FullAdder(a=x[12], b=t12, c=c12, sum=out[12], carry=c13);
+    FullAdder(a=x[13], b=t13, c=c13, sum=out[13], carry=c14);
+    FullAdder(a=x[14], b=t14, c=c14, sum=out[14], carry=c15);
+    FullAdder(a=x[15], b=t15, c=c15, sum=out[15], carry=c16);
+
+    Xor(a=c15, b=c16, out=of);
+}

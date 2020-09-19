@@ -1,0 +1,12 @@
+(1: 16-bit FullAdder)
+(a) Unsigned 8-bit multiplier
+(b) Signed 8-bit multiplier
+
+tasks:
+1. Write signature for (a), (b), design (b), write (1)
+2. Write (a)
+3. Write (b)
+
+built: 
+
+tested:
