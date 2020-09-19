@@ -1,0 +1,17 @@
+CHIP CSA16Unsigned{
+    IN in1[16],in2[16],carryIn[16];
+    OUT sum[16],carryOut[16];
+
+    PARTS:
+
+    //sum
+    Xor16(a=in1,b=in2,out=temp1);
+    Xor16(a=temp1,b=carryIn,out=sum);
+
+    //carryOut
+    And16(a=in1,b=in2,out=tempCarry1);
+    And16(a=in2,b=carryIn,out=tempCarry2);
+    And16(a=carryIn,b=in1,out=tempCarry3);
+    Or16 (a=tempCarry1,b=tempCarry2,out=tempCarry4);
+    Or16 (a=tempCarry3,b=tempCarry4,out=carryOut);
+}
