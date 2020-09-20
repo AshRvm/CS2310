@@ -1,0 +1,51 @@
+CHIP MPLY8CSAu  {
+    IN  a[8], b[8];
+    OUT p[8], of;
+
+    PARTS:
+    And8b1(a=a, b=b[0], out=pp0);
+    And8b1(a=a, b=b[1], out=pp1);
+    And8b1(a=a, b=b[2], out=pp2);
+    And8b1(a=a, b=b[3], out=pp3);
+    And8b1(a=a, b=b[4], out=pp4);
+    And8b1(a=a, b=b[5], out=pp5);
+    And8b1(a=a, b=b[6], out=pp6);
+    And8b1(a=a, b=b[7], out=pp7);
+
+    //level_0: (pp0 pp1 pp2) (pp3 pp4 pp5) pp6 pp7 -> s00 c00 s01 c01 pp6 pp7
+    CSA16u(a[0..7]=pp0,  b[1..8]=pp1,  ci[2..9]=pp2,  s=s00, co=c00);
+    CSA16u(a[3..10]=pp3, b[4..11]=pp4, ci[5..12]=pp5, s=s01, co=c01);
+
+    //level_1: (s00 c00 s01) (c01 pp6 pp7) -> s10 c10 s11 c11
+    CSA16u(a=s00,	b=c00,			ci=s01,			s=s10,	co=c10);
+    CSA16u(a=c01,	b[6..13]=pp6,	ci[7..14]=pp7,	s=s11,	co=c11);
+
+    //level_2: (s10 c10 s11) c11 -> s20 c20 c11
+    CSA16u(a=s10, b=c10, ci=s11, s=s20, co=c20);
+
+    //level_3: (s20 c20 c11) -> s30 c30
+    CSA16u(a=s20, b=c20, ci=c11, s=s30, co=c30);
+
+    //CLA16Adder:
+    CLA164Hu(a=s30, b=c30, AS=0, 
+    		 s[0..7] = p,
+    		 s[8] 	 = s8,
+    		 s[9] 	 = s9,
+    		 s[10]	 = s10,
+    		 s[11]	 = s11,
+    		 s[12]	 = s12,
+    		 s[13]	 = s13,
+    		 s[14]	 = s14,
+    		 s[15]	 = s15, of=discard0);
+
+    //Overflow:
+    Or(a=s8, 	 b=s9,   	out=s8s9);
+    Or(a=s10, 	 b=s11, 	out=s10s11);
+    Or(a=s12, 	 b=s13, 	out=s12s13);
+    Or(a=s14, 	 b=s15, 	out=s14s15);
+
+    Or(a=s8s9, 	 b=s10s11,  out=s8t11);
+    Or(a=s12s13, b=s14s15,  out=s12t15);
+
+    Or(a=s8t11,  b=s12t15,  out=of);
+}

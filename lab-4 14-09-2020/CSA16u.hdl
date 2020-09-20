@@ -1,0 +1,17 @@
+CHIP CSA16u  {
+    IN a[16], b[16], ci[16];
+    OUT s[16], co[16];
+
+    PARTS:
+    //sum
+    Xor16(a=a,   b=b,   out=axb);
+    Xor16(a=axb, b=ci,  out=s);
+
+    //carryOut
+    And16(a=a,  b=b,    out=ab);
+    And16(a=a,  b=ci,   out=aci);
+    And16(a=b,  b=ci,   out=bci);
+
+    Or16(a=ab,  b=bci,      out=abobci);
+    Or16(a=aci, b=abobci,   out=co);
+}
