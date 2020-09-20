@@ -1,7 +1,7 @@
 CHIP CLA4PGO  {
-	//CLA4PGO takes in a, b, carrb-in and outputs Pi and Gi terms
+	//CLA4PGO takes in a, b, carry-in and outputs Pi and Gi terms
 
-	//ci: carrb-in, co: carrb-out
+	//ci: carry-in, co: carry-out
 	IN 		a[4], b[4], ci;
 	OUT		p[4], g[4];
 

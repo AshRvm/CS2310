@@ -1,11 +1,10 @@
-CHIP CLA4PGIu  {
-	//unsigned
-	//CLA4PGIu takes in p, g, carry-in and outputs Si and carry-out terms
-	//and overflow term
+CHIP CLA4PGIa  {
+	//does not care about overflow or carry-out
+	//CLA4PGIa takes in p, g, carry-in and outputs Si only
 
-	//ci: carry-in, co: carry-out
+	//ci: carry-in
 	IN 		p[4], g[4], ci;
-	OUT		s[4], co, of;
+	OUT		s[4];
 
 	PARTS:
 	//c0 = ci
@@ -22,14 +21,6 @@ CHIP CLA4PGIu  {
 	And3(a=p[2], b=p[1], c=g[0], out=p1p0g0);
 	And(a=p[2],  b=g[1], out=p2g1);
 	Or4(a=p2p1p0c0, b=p1p0g0, c=p2g1, d=g[2], out=c3);
-
-	//co
-	And5(a=p[3], b=p[2], c=p[1], d=p[0], e=ci, out=p3p2p1p0c0);
-	And4(a=p[3], b=p[2], c=p[1], d=g[0], out=p3p2p1g0);
-	And3(a=p[3], b=p[2], c=g[1], out=p3p2g1);
-	And(a=p[3],  b=g[2], out=p3g2);
-	Or5(a=p3p2p1p0c0, b=p3p2p1g0, c=p3p2g1, d=p3g2, e=g[3], out=co, out=of);
-	//carry-out is overflow indicator for unsigned adder
 
 	//sum bits: Si = Pi xor Ci
 	Xor(a=p[0], b=ci, out=s[0]);
