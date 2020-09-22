@@ -1,0 +1,12 @@
+8-bit ALU (ALU8)
+
+(a) test file
+(b) signature and logical part
+(c) arithmetic part
+
+built: 
+
+tested:
+a 
+b 
+c 
