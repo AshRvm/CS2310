@@ -1,0 +1,7 @@
+CHIP ALU8  {
+	IN 	x[8], y[8], us, opcode[3];
+	OUT z[8], of, eq;
+
+	PARTS:
+	
+}

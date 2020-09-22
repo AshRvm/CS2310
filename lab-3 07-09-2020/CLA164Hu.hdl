@@ -1,7 +1,7 @@
 CHIP CLA164Hu  {
 	//unsigned
 
-	//ci: carrb-in, co: carrb-out, of: overflow
+	//ci: carry-in, co: carry-out, of: overflow
 	IN		a[16], b[16], AS;
 	OUT		s[16], co, of;
 
@@ -89,5 +89,5 @@ CHIP CLA164Hu  {
 	CLA4PGIu(p=P4b7,   g=G4b7,   ci=c4,  s=s[4..7],   co=discard1, of=discard5);
 	CLA4PGIu(p=P8b11,  g=G8b11,  ci=c8,  s=s[8..11],  co=discard2, of=discard6);
 	CLA4PGIu(p=P12b15, g=G12b15, ci=c12, s=s[12..15], co=discard3, of=of);
-	//the (^) onlb difference between signed and unsigned variants lies here
+	//the (^) only difference between signed and unsigned variants lies here
 }
