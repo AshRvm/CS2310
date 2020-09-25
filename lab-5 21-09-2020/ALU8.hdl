@@ -3,5 +3,32 @@ CHIP ALU8  {
 	OUT z[8], of, eq;
 
 	PARTS:
-	
+	//opcode: 	000 001 010 011 100 101 110 111
+	//		  	NOP	AND	OR	XOR	ADD	SUB	UML	IML
+
+	//logical:
+	And8(a=x, b=y, out=andOut);
+	Or8(a=x, b=y, out=orOut);
+	Xor8(a=x, b=y, out=xorOut);
+
+	//arithmetic:
+	CLA84(a=x, b=y, us=us, AS=opcode[0], s=addOut, co=discard1, of=addOf);
+
+	MPLY8CSAu(a=x, b=y, p=muluOut, of=muluOf);
+	MPLY8CSA (a=x, b=y, p=mulOut,  of=mulOf);
+
+	//z
+	Mux8Way8(x1=andOut, x2=orOut, x3=xorOut, x4=addOut, x5=addOut, x6=muluOut, x7=mulOut,
+			 s[0]=opcode[0], s[1]=opcode[1], s[2]=opcode[2], y=z);
+
+	//of
+	Not(in=opcode[1], out=notop1);
+	And(a=notop1, b=addOf, out=ofp0);
+	Mux2Way(x0=muluOf, x1=mulOf, s=opcode[0], y=ofp1p0);
+	And(a=opcode[1], b=ofp1p0, out=ofp1);
+
+	Or(a=ofp0, b=ofp1, out=of);
+
+	//eq
+	Comp8(a=x, b=y, out=eq);
 }

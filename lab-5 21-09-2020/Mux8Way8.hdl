@@ -1,0 +1,37 @@
+CHIP Mux8Way8  {
+	IN x0[8], x1[8], x2[8], x3[8], x4[8], x5[8], x6[8], x7[8], s[3];
+	OUT y[8];
+
+	PARTS:
+	Not(in=s[0], out=ns0);
+	Not(in=s[1], out=ns1);
+	Not(in=s[2], out=ns2);
+
+	And3(a=ns0,  b=ns1,  c=ns2,  out=t0);
+	And3(a=s[0], b=ns1,  c=ns2,  out=t1);
+	And3(a=ns0,  b=s[1], c=ns2,  out=t2);
+	And3(a=s[0], b=s[1], c=ns2,  out=t3);
+	And3(a=ns0,  b=ns1,  c=s[2], out=t4);
+	And3(a=s[0], b=ns1,  c=s[2], out=t5);
+	And3(a=ns0,  b=s[1], c=s[2], out=t6);
+	And3(a=s[0], b=s[1], c=s[2], out=t7);
+
+	And8b1(a=x0, b=t0, out=m0);
+	And8b1(a=x1, b=t1, out=m1);
+	And8b1(a=x2, b=t2, out=m2);
+	And8b1(a=x3, b=t3, out=m3);
+	And8b1(a=x4, b=t4, out=m4);
+	And8b1(a=x5, b=t5, out=m5);
+	And8b1(a=x6, b=t6, out=m6);
+	And8b1(a=x7, b=t7, out=m7);
+
+	Or8(a=m0, b=m1, out=m01);
+	Or8(a=m2, b=m3, out=m23);
+	Or8(a=m4, b=m5, out=m45);
+	Or8(a=m6, b=m7, out=m67);
+
+	Or8(a=m01, b=m23, out=m0123);
+	Or8(a=m45, b=m67, out=m4567);
+
+	Or8(a=m0123, b=m4567, out=y);
+}

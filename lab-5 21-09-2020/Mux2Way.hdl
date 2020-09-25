@@ -1,0 +1,12 @@
+CHIP Mux2Way  {
+	IN x0, x1, s;
+	OUT y;
+
+	PARTS:
+	Not(in=s, out=ns);
+
+	And(a=x0, b=ns, out=m0);
+	And(a=x1, b=s,  out=m1);
+
+	Or(a=m0, b=m1, out=y);
+}

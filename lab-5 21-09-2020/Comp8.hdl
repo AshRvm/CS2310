@@ -1,0 +1,25 @@
+CHIP Comp8  {
+	IN a[8], b[8];
+	OUT out;
+
+	PARTS:
+	
+	Xor(a=a[0], b=b[0], out=temp0);
+	Xor(a=a[1], b=b[1], out=temp1);
+	Xor(a=a[2], b=b[2], out=temp2);
+	Xor(a=a[3], b=b[3], out=temp3);
+	Xor(a=a[4], b=b[4], out=temp4);
+	Xor(a=a[5], b=b[5], out=temp5);
+	Xor(a=a[6], b=b[6], out=temp6);
+	Xor(a=a[7], b=b[7], out=temp7);	
+
+	Or(a=temp0,    b=temp1, out=newtemp1);
+	Or(a=newtemp1, b=temp2, out=newtemp2);
+	Or(a=newtemp2, b=temp3, out=newtemp3);
+	Or(a=newtemp3, b=temp4, out=newtemp4);
+	Or(a=newtemp4, b=temp5, out=newtemp5);
+	Or(a=newtemp5, b=temp6, out=newtemp6);
+	Or(a=newtemp6, b=temp7, out=notz);
+
+	Not(in=notz, out=out);
+}

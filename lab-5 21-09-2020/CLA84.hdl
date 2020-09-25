@@ -1,8 +1,6 @@
-CHIP CLA84H  {
-	//signed
-
+CHIP CLA84  {
 	//AS: add/subtract line (1: subtract), co: carry-out, of: overflow
-	IN		a[8], b[8], AS;
+	IN		a[8], b[8], us, AS;
 	OUT		s[8], co, of;
 
 	PARTS:
@@ -50,6 +48,6 @@ CHIP CLA84H  {
 	Or3(a=p1ip0ic0, b=p1ig0i, c=g1i, out=c8);
 
 	//////////    t = 7tau: C(4i+k), Si    //////////
-	CLA4PGI(p=P0b3,	  g=G0b3,   ci=AS,  s=s[0..3],   co=discard0, of=discard4);
-	CLA4PGI(p=P4b7,   g=G4b7,   ci=c4,  s=s[4..7],   co=discard1, of=of);
+	CLA4PGI(p=P0b3,	  g=G0b3, us=us,   ci=AS,  s=s[0..3],   co=discard0, of=discard4);
+	CLA4PGI(p=P4b7,   g=G4b7, us=us,   ci=c4,  s=s[4..7],   co=discard1, of=of);
 }
