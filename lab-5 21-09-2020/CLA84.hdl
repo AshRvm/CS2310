@@ -1,5 +1,6 @@
 CHIP CLA84  {
 	//AS: add/subtract line (1: subtract), co: carry-out, of: overflow
+	//us: unsigned: 0, signed: 1
 	IN		a[8], b[8], us, AS;
 	OUT		s[8], co, of;
 

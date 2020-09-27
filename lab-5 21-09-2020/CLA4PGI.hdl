@@ -3,6 +3,7 @@ CHIP CLA4PGI  {
 	//and overflow term
 
 	//ci: carry-in, co: carry-out
+	//us: unsigned: 0, signed: 1
 	IN 		p[4], g[4], us, ci;
 	OUT		s[4], co, of;
 
@@ -37,8 +38,8 @@ CHIP CLA4PGI  {
 	Xor(a=p[3], b=c3, out=s[3]);
 
 	//of check
-	And(a=c4, b=us, out=ofu);
+	And(a=c4, b=nus, out=ofu);
 	Xor(a=c3, b=c4, out=ofst);
-	And(a=ofst, b=nus, out=ofs);
+	And(a=ofst, b=us, out=ofs);
 	Or(a=ofu, b=ofs, out=of);
 }

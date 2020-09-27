@@ -1,4 +1,5 @@
 CHIP ALU8  {
+	//us: unsigned: 0, signed: 1
 	IN 	x[8], y[8], us, opcode[3];
 	OUT z[8], of, eq;
 
@@ -8,7 +9,7 @@ CHIP ALU8  {
 
 	//logical:
 	And8(a=x, b=y, out=andOut);
-	Or8(a=x, b=y, out=orOut);
+	Or8 (a=x, b=y, out=orOut);
 	Xor8(a=x, b=y, out=xorOut);
 
 	//arithmetic:
