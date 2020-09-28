@@ -1,0 +1,5 @@
+16-bit Floating Point Multiplier (FPMUL16)
+
+(a) 7-bit 2-1 Mux, 8-bit adder (copy), tst for FPMUL16
+(b) 9-bit subtractor, 8-bit 2-1 Mux (copy)
+(c) Floating Point Multiplier
