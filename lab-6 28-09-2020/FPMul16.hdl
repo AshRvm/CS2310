@@ -3,27 +3,26 @@ CHIP FPMul16  {
     OUT p[16];
 
     PARTS:
-    //1.xm * 1.ym -> p17...p0
-    MPLY9CSAuFP(a[0]=true, a[1..8]=a[8..15], b[0]=true, b[1..8]=b[8..15], p[17]=p17, p[18..10]=p16t10, p[15..9]=p15t9);
+    //1.xm * 1.ym -> p15...p0
+    MPLY8CSAuFP(a[0]=true, a[1..7]=a[9..15], b[0]=true, b[1..7]=b[9..15], p[0]=p15, p[1..7]=p14t8, p[2..8]=p13t7);
 
     //xe + ye
-    CLA84u(a[0]=false, a[1..7]=a[1..7], b[0]=false, b[1..7]=b[1..7], us=false, AS=false,
-           s=xeye);
+    CLA84u(a=a[1..8], b=b[1..8], us=false, AS=false, s=xeye, of=xeyeo);
 
     //xe + ye - 127
-    CLA84u(a=xeye, b[0]=false, b[1]=true, b[2]=true,
-           b[3]=true, b[4]=true, b[5]=true, b[6]=true,
-           b[7]=true, us=false, AS=true, s[1..7]=ge0);
+    CLA124u(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
+           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
+           b[8]=true, us=false, AS=true, s[1..8]=ge0);
     //xe + ye - 126
-    CLA84u(a=xeye, b[0]=false, b[1]=true, b[2]=true,
-           b[3]=true, b[4]=true, b[5]=true, b[6]=true,
-           b[7]=false, us=false, AS=true, s[1..7]=ge1);
+    CLA124u(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
+           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
+           b[8]=false, us=false, AS=true, s[1..8]=ge1);
 
     //ze
-    Mux2Way7(x0=ge0, x1=ge1, s=p17, y=p[1..7]);
+    Mux2Way8(x0=ge0, x1=ge1, s=p17, y=p[1..8]);
 
     //zm
-    Mux2Way8(x0=p15t9, x1=p16t10, s=p17, y=p[8..15]);
+    Mux2Way7(x0=p14t8, x1=p13t7, s=p15, y=p[9..15]);
 
     //zs
     Xor(a=a[0], b=b[0], out=p[0]);

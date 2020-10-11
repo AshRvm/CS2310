@@ -5,8 +5,8 @@ CHIP Mux2Way7  {
 	PARTS:
 	Not(in=s, out=ns);
 
-	And8b1(a=x0, b=ns, out=m0);
-	And8b1(a=x1, b=s,  out=m1);
+	And8b1(a[1..7]=x0, b=ns, out[1..7]=m0);
+	And8b1(a[1..7]=x1, b=s,  out[1..7]=m1);
 
 	Or(a=m0, b=m1, out=y);
 }
