@@ -3,27 +3,30 @@ CHIP FPMul16  {
     OUT p[16];
 
     PARTS:
+    // a[0..6]: mantissa fraction, a[7..14]: biased exponent, a[15]: sign
+
     //1.xm * 1.ym -> p15...p0
-    MPLY8CSAuFP(a[0]=true, a[1..7]=a[9..15], b[0]=true, b[1..7]=b[9..15], p[0]=p15, p[1..7]=p14t8, p[2..8]=p13t7);
+    //product has p0 p1 p2 ... p13 p14 p15
+    MPLY8CSAuFP(a[0..6]=a[0..6], a[7]=true, b[0..6]=b[0..6], b[7]=true, p[15]=p15, p[8..14]=p8t14, p[7..13]=p7t13);
 
     //xe + ye
-    CLA84(a=a[1..8], b=b[1..8], us=false, AS=false, s=xeye, of=xeyeo);
+    CLA84(a=a[7..14], b=b[7..14], us=false, AS=false, s=xeye, of=xeyeo);
 
     //xe + ye - 127
-    CLA124Ha(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
-           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
-           b[8]=true, AS=true, s[1..8]=ge0);
+    CLA124Ha(a[0..7]=xeye, a[8]=xeyeo, b[0]=true, b[1]=true, b[2]=true,
+           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=false,
+           b[8]=false, AS=true, s[0..7]=ge0);
     //xe + ye - 126
-    CLA124Ha(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
-           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
-           b[8]=false, AS=true, s[1..8]=ge1);
+    CLA124Ha(a[0..7]=xeye, a[8]=xeyeo, b[0]=false, b[1]=true, b[2]=true,
+           b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=false,
+           b[8]=false, AS=true, s[0..7]=ge1);
 
     //ze
-    Mux2Way8(x0=ge0, x1=ge1, s=p15, y=p[1..8]);
+    Mux2Way8(x0=ge0, x1=ge1, s=p15, y=p[7..14]);
 
     //zm
-    Mux2Way7(x0=p14t8, x1=p13t7, s=p15, y=p[9..15]);
+    Mux2Way7(x0=p7t13, x1=p8t14, s=p15, y=p[0..6]);
 
     //zs
-    Xor(a=a[0], b=b[0], out=p[0]);
+    Xor(a=a[15], b=b[15], out=p[15]);
 }
