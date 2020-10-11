@@ -8,5 +8,5 @@ CHIP Mux2Way8  {
 	And8b1(a=x0, b=ns, out=m0);
 	And8b1(a=x1, b=s,  out=m1);
 
-	Or(a=m0, b=m1, out=y);
+	Or8(a=m0, b=m1, out=y);
 }

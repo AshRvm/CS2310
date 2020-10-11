@@ -10,16 +10,16 @@ CHIP FPMul16  {
     CLA84(a=a[1..8], b=b[1..8], us=false, AS=false, s=xeye, of=xeyeo);
 
     //xe + ye - 127
-    CLA124u(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
+    CLA124Ha(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
            b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
-           b[8]=true, us=false, AS=true, s[1..8]=ge0);
+           b[8]=true, AS=true, s[1..8]=ge0);
     //xe + ye - 126
-    CLA124u(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
+    CLA124Ha(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
            b[3]=true, b[4]=true, b[5]=true, b[6]=true, b[7]=true,
-           b[8]=false, us=false, AS=true, s[1..8]=ge1);
+           b[8]=false, AS=true, s[1..8]=ge1);
 
     //ze
-    Mux2Way8(x0=ge0, x1=ge1, s=p17, y=p[1..8]);
+    Mux2Way8(x0=ge0, x1=ge1, s=p15, y=p[1..8]);
 
     //zm
     Mux2Way7(x0=p14t8, x1=p13t7, s=p15, y=p[9..15]);

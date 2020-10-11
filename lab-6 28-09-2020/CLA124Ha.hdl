@@ -3,7 +3,7 @@ CHIP CLA124Ha  {
 
 	//ci: carry-in, co: carry-out
 	IN		a[12], b[12], AS;
-	OUT		s[12], co;
+	OUT		s[12];
 
 	PARTS:
 	//p[0-9]+ : Pi
