@@ -1,0 +1,17 @@
+CHIP CSA18u  {
+    IN a[18], b[18], ci[18];
+    OUT s[18], co[18];
+
+    PARTS:
+    //sum
+    Xor18(a=a,   b=b,   out=axb);
+    Xor18(a=axb, b=ci,  out=s);
+
+    //carryOut
+    And18(a=a,  b=b,    out=ab);
+    And18(a=a,  b=ci,   out=aci);
+    And18(a=b,  b=ci,   out=bci);
+
+    Or18(a=ab,  b=bci,      out=abobci);
+    Or18(a=aci, b=abobci,   out=co);
+}

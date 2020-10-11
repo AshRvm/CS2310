@@ -1,0 +1,12 @@
+CHIP Mux2Way8  {
+	IN x0[8], x1[8], s;
+	OUT y[8];
+
+	PARTS:
+	Not(in=s, out=ns);
+
+	And8b1(a=x0, b=ns, out=m0);
+	And8b1(a=x1, b=s,  out=m1);
+
+	Or(a=m0, b=m1, out=y);
+}

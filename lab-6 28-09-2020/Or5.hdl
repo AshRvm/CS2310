@@ -1,0 +1,10 @@
+CHIP Or5  {
+	IN	a, b, c, d, e;
+	OUT	out;
+
+	PARTS:
+	Or(a=a, b=b, out=r);
+	Or(a=c, b=d, out=s);
+	Or(a=r, b=s, out=t);
+	Or(a=e, b=t, out=out);
+}
