@@ -7,7 +7,7 @@ CHIP FPMul16  {
     MPLY8CSAuFP(a[0]=true, a[1..7]=a[9..15], b[0]=true, b[1..7]=b[9..15], p[0]=p15, p[1..7]=p14t8, p[2..8]=p13t7);
 
     //xe + ye
-    CLA84u(a=a[1..8], b=b[1..8], us=false, AS=false, s=xeye, of=xeyeo);
+    CLA84(a=a[1..8], b=b[1..8], us=false, AS=false, s=xeye, of=xeyeo);
 
     //xe + ye - 127
     CLA124u(a[0]=xeyeo, a[1..8]=xeye, b[0]=false, b[1]=false, b[2]=true,
