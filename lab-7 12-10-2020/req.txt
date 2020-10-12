@@ -1,0 +1,3 @@
+(a) Gather required chips
+(b) Build main chip (HackALU)
+(c) Write test file, test chip
