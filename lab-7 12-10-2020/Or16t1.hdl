@@ -1,0 +1,25 @@
+CHIP Or16t1 {
+    IN a[16];
+    OUT out;
+
+    PARTS:
+    
+    Or(a=a[0], b=a[1], out=temp01);
+    Or(a=a[2], b=a[3], out=temp02);
+    Or(a=a[4], b=a[5], out=temp03);
+    Or(a=a[6], b=a[7], out=temp04);
+    Or(a=a[8], b=a[9], out=temp05);
+    Or(a=a[10], b=a[11], out=temp06);
+    Or(a=a[12], b=a[13], out=temp07);
+    Or(a=a[14], b=a[15], out=temp08);
+
+    Or(a=temp01, b=temp02, out=temp11);
+    Or(a=temp03, b=temp04, out=temp12);
+    Or(a=temp05, b=temp06, out=temp13);
+    Or(a=temp07, b=temp08, out=temp14);
+
+    Or(a=temp11, b=temp12, out=temp21);
+    Or(a=temp13, b=temp14, out=temp22);
+    
+    Or(a=temp21, b=temp22, out=out);
+}

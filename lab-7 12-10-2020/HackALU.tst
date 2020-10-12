@@ -1,6 +1,6 @@
 load HackALU.hdl,
 output-file HackALU.out,
-//compare-to HackALU.cmp,
+compare-to HackALU.cmp,
 output-list x%B1.16.1 zx nx y%B1.16.1 zy ny f no out%B1.16.1 zr ng;
 
 //x +ve y +ve, x > y
