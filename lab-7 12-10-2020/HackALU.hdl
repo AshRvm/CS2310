@@ -3,10 +3,12 @@ CHIP HackALU {
     OUT out[16], zr, ng;
 
     PARTS:
-
+    //mx, my are zero if zx, zy are true
     Mux2Way16(a=x, s=zx, out=mx);
     Mux2Way16(a=y, s=zy, out=my);
 
+    //p, q are negated if nx, ny are true
+    //a xor 1 = !a, a xor 0 = a
     Xor16b1(a=mx, b=nx, out=p);
     Xor16b1(a=my, b=ny, out=q);
 
