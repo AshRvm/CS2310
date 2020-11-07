@@ -1,0 +1,11 @@
+CHIP CLA164  {
+    IN a[16], b[16];
+    OUT s[16];
+
+    PARTS:
+    CLA4(x=a[0..3],      y=b[0..3], ci=false,  s=s[0..3],    co=c4);
+    CLA4(x=a[4..7],      y=b[4..7], ci=c4,  s=s[4..7],    co=c8);
+    CLA4(x=a[8..11],     y=b[8..11], ci=c8,  s=s[8..11],   co=c12);
+    CLA4(x=a[12..15],   y=b[12..15], ci=c12, s=s[12..15],   co=c16);
+
+}

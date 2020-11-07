@@ -1,0 +1,86 @@
+CHIP HackCPU  {
+    IN instruction[16], inM[16], reset;
+    OUT outM[16], writeM, addressM[6], pc[16];
+
+    PARTS:
+    //DECODER
+    /*
+        0: 0 for A, 1 for C
+        
+        (for C)
+        1, 2: ignored
+        3: a
+        4..9: c (ALU)
+        10..12: d (Write)
+        13..15: j (Jump)
+
+        15: 0 for A, 1 for C
+        14, 13: ignored
+        12: a
+        11..6: c (ALU)
+        5..3: d (write)
+        2..0: j (jump)
+    */
+
+    //Decoding JMP control bit
+    //negate inputs:
+    And(a=instruction[15], b=true, out=cinst); //cinst: c-instruction if 1
+    Not(in=instruction[15], out=ainst);
+
+    Not(in=instruction[2], out=nj1);
+    Not(in=instruction[1], out=nj2);
+    Not(in=instruction[0], out=nj3);
+    Not(in=zr, out=nzr);
+    Not(in=ng, out=nng);
+    And(a=instruction[5], b=cinst, out=d1);
+    And(a=instruction[4], b=cinst, out=d2);
+    And(a=instruction[3], b=cinst, out=d3);
+    And(a=instruction[12], b=cinst, out=a);
+
+    //first part: j1j2(j3 + zr + ng)
+    Or3(a=instruction[0], b=zr, c=ng, out=jmp0p0);
+    And3(a=instruction[2], b=instruction[1], c=jmp0p0, out=jmp0);
+
+    //second part: j1!j2!zr(j3 + ng)
+    Or(a=instruction[0], b=ng, out=jmp1p0);
+    And4(a=instruction[2], b=nj2, c=nzr, d=jmp1p0, out=jmp1);
+
+    //third part: !j1j3!ng(j2 + !zr)
+    Or(a=instruction[1], b=nzr, out=jmp2p0);
+    And4(a=nj1, b=instruction[0], c=nng, d=jmp2p0, out=jmp2);
+
+    //fourth part: !j1j2!j3zr
+    And4(a=nj1, b=instruction[1], c=nj3, d=zr, out=jmp3);
+    
+    //collect
+    Or4(a=jmp0, b=jmp1, c=jmp2, d=jmp3, out=jmpx);
+    And(a=cinst, b=jmpx, out=jmp);
+    Not(in=jmp, out=njmp);
+
+    //Decoding A Register write control bit
+    And(a=cinst, b=d1, out=awritep1);
+    Or(a=ainst, b=awritep1, out=awrite);
+
+    //mux1
+    Mux16(a=aluout, b=instruction, sel=ainst, out=mux1out);
+
+    ARegister(in=mux1out, load=awrite, out=aregout, out[0..5]=addressM);
+
+    DRegister(in=aluout, load=d2, out=dregout);
+
+    //mux2
+    Mux16(a=aregout, b=inM, sel=a, out=AM);
+
+    HackALU(x=dregout, y=AM,
+            zx=instruction[11],
+            nx=instruction[10],
+            zy=instruction[9],
+            ny=instruction[8],
+            f=instruction[7],
+            no=instruction[6],
+            out=aluout, out=outM, zr=zr, ng=ng);
+
+    PC(in=aregout, load=jmp, inc=njmp, reset=reset, out=pc);
+
+    And(a=d3, b=cinst, out=writeM);
+}

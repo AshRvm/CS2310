@@ -1,0 +1,28 @@
+CHIP HackALU {
+    IN x[16], y[16], zx, nx, zy, ny, f, no;
+    OUT out[16], zr, ng;
+
+    PARTS:
+    //mx, my are zero if zx, zy are true
+    Mux2Way16(a=x, s=zx, out=mx);
+    Mux2Way16(a=y, s=zy, out=my);
+
+    //p, q are negated if nx, ny are true
+    //a xor 1 = !a, a xor 0 = a
+    Xor16b1(a=mx, b=nx, out=p);
+    Xor16b1(a=my, b=ny, out=q);
+
+    //p + q
+    CLA164(a=p, b=q, s=pqsum);
+
+    //p & q
+    And16(a=p, b=q, out=pqand);
+
+    //out and ng
+    Mux2Way16(a=pqand, b=pqsum, s=f, out=r);
+    Xor16b1(a=r, b=no, out=out, out=outtemp, out[15]=ng);
+
+    //zr
+    Or16t1(a=outtemp, out=notzr);
+    Not(in=notzr, out=zr);
+}
