@@ -6,3 +6,7 @@ D=M+D //a + b
 D=D-M //(a + b) - c
 @d
 M=D
+
+(END)
+@END
+0;JMP
